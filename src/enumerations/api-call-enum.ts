@@ -1,8 +1,8 @@
 export enum ApiCallEnum {
-    user,
-    property,
-    faction,
-    company,
-    market,
-    torn,
+    user = 'user',
+    property = 'property',
+    faction = 'faction',
+    company = 'company',
+    market = 'market',
+    torn = 'torn'
 }

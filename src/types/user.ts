@@ -1,9 +1,9 @@
-import { Status } from "./status";
+import { status } from "./status";
 
-export interface User {
+export interface basic extends Readonly<{
     level: number,
     gender: string,
     player_id: number,
     name: string,
-    status: Status
-}
+    status: status
+}>{}

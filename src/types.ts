@@ -9,6 +9,7 @@ export const TYPES = {
     MessageResponder: Symbol("MessageResponder"),
     HttpClient: Symbol("HttpClient"),
     Selector: Symbol("Selector"),
+    CustomParsers: Symbol("CustomParsers"),
     //User Module
     UserSandbox: Symbol("UserSandbox"),
     UserModule: Symbol("UserModule"),

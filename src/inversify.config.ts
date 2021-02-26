@@ -10,6 +10,7 @@ import { UserModule } from "./modules/user-info/user-info";
 import { StocksSandbox } from "./modules/stocks/stocks.sandbox";
 import { StocksModule } from "./modules/stocks/stocks";
 import { Selector } from "./utils/selector";
+import { CustomParsers } from "./utils/custom-parsers";
 
 let container = new Container();
 
@@ -25,6 +26,7 @@ container.bind<string>(TYPES.Prefix).toConstantValue(<string>process.env.PREFIX)
 container.bind<MessageResponder>(TYPES.MessageResponder).to(MessageResponder).inSingletonScope();
 container.bind<HttpClient>(TYPES.HttpClient).to(HttpClient).inSingletonScope();
 container.bind<Selector>(TYPES.Selector).to(Selector).inSingletonScope();
+container.bind<CustomParsers>(TYPES.CustomParsers).to(CustomParsers).inSingletonScope();
 
 //User Module
 container.bind<UserSandbox>(TYPES.UserSandbox).to(UserSandbox).inSingletonScope();

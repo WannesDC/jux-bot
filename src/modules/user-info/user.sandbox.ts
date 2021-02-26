@@ -1,8 +1,9 @@
 import { injectable, inject } from "inversify";
 import { HttpClient } from "../../services/http-client";
 import { TYPES } from "../../types";
-import { Profile } from "../../types/profile";
+import { profile } from "../../types/profile";
 import { ApiCallEnum } from "../../enumerations/api-call-enum";
+import { AxiosResponse } from "axios";
 
 @injectable()
 export class UserSandbox {
@@ -15,7 +16,7 @@ export class UserSandbox {
         this.httpClient = client;
       }
 
-    public async getProfile(userId : string) : Promise<Profile> {
+    public async getProfile(userId : string) : Promise<AxiosResponse<profile>> {
         return await this.httpClient.apiCall(ApiCallEnum.user, 'profile', userId);
     }
 

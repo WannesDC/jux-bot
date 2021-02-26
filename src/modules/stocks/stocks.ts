@@ -1,7 +1,8 @@
 import { injectable, inject } from "inversify";
 import { StocksSandbox } from "./stocks.sandbox";
-import { Stock } from "../../types/stock";
+import { stock } from "../../types/stock";
 import { TYPES } from "../../types";
+import { AxiosResponse } from "axios";
 
 @injectable()
 export class StocksModule {
@@ -22,7 +23,7 @@ export class StocksModule {
 
     }
 
-    private async getStocks() : Promise<Stock[]> {
+    private async getStocks() : Promise<AxiosResponse<stock[]>> {
         return await this.stocksSandbox.getStocks();
     }
 

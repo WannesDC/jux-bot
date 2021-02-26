@@ -42,7 +42,7 @@ export class MessageResponder {
 
 
     // Profile Module
-    if(message.content.startsWith(this.prefix+ BotConstants.COMMANDS.USER) && message.author.id === '182150558638014464'){
+    if(message.content.startsWith(this.prefix+ BotConstants.COMMANDS.USER)){
       await this.userModule.createProfileMessage(message)
       return message.delete();
     }
