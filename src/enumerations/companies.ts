@@ -1,4 +1,5 @@
 export enum Companies {
+    C0 = 'No Company',
     C1 = 'Hair Salon',
     C2 = 'Law Firm',
     C3 = 'Flower Shop',

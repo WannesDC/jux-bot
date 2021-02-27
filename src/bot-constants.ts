@@ -26,6 +26,7 @@ export const BotConstants = {
     },
     PROFILE: {
         DESCRIPTION: 'Level $1 of $2',
+        NOFAC_DESCRIPTION: 'Level $1',
         TITLE: '$1 [$2]',
         FOOTER:'JUX HQ - !User command',
         TITLES: {
@@ -40,8 +41,11 @@ export const BotConstants = {
         DESCRIPTIONS: {
             LIFE: '$1/$2',
             FACTION: '$1 of [$2 [$3]]($4) for $5 days',
+            NOFACTION: '$1 is not in a faction',
             COMPANY: '$1 in $2',
+            NOCOMPANY:'$1 works in the $2',
             MARRIAGE: 'Married to [$1 [$2]]($3) for $4 days',
+            NOMARRIAGE: 'Forever Alone',
             LINKS: '[Attack]($1) | [Bounty]($2) | [Message]($3) | [Send Cash]($4) | [Trade]($5)'
 
         }
