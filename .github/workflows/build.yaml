@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup environment variables
+        run: |
+          export TOKEN=${{ secrets.TOKEN }}
+          export HOSTAPI=${{ secrets.HOSTAPI }}
+          export PREFIX=${{ secrets.PREFIX }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Project
+        run: npm run build
