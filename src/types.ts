@@ -15,5 +15,7 @@ export const TYPES = {
     UserModule: Symbol("UserModule"),
     //Stocks Module
     StocksSandbox: Symbol("StocksSandbox"),
-    StocksModule: Symbol("StocksModule")
+    StocksModule: Symbol("StocksModule"),
+    //Random Module
+    RandomResponses: Symbol("RandomResponses")
   };

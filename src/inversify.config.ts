@@ -11,6 +11,7 @@ import { StocksSandbox } from "./modules/stocks/stocks.sandbox";
 import { StocksModule } from "./modules/stocks/stocks";
 import { Selector } from "./utils/selector";
 import { CustomParsers } from "./utils/custom-parsers";
+import { RandomResponses } from "./modules/random-responses/random-responses";
 
 let container = new Container();
 
@@ -36,4 +37,6 @@ container.bind<UserModule>(TYPES.UserModule).to(UserModule).inSingletonScope();
 container.bind<StocksSandbox>(TYPES.StocksSandbox).to(StocksSandbox).inSingletonScope();
 container.bind<StocksModule>(TYPES.StocksModule).to(StocksModule).inSingletonScope();
 
+//Random Module
+container.bind<RandomResponses>(TYPES.RandomResponses).to(RandomResponses).inSingletonScope();
 export default container;
