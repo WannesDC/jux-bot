@@ -17,7 +17,12 @@ class Command {
     }
 }
 
-    private modules: Map<String, Function>;
+@injectable()
+export class MessageResponder {
+  private prefix: string;
+  private random: RandomResponses;
+  private db: DatabaseController;
+  private modules: Map<String, Command>;
 
     constructor(
         @inject(TYPES.UserModule) userModule: UserModule,
