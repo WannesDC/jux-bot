@@ -8,7 +8,8 @@ export const BotConstants = {
         QUOTES: 'quotes',
         STOCK: 'stock',
         USER: 'user',
-        GENERATE_DB: 'gndb'
+        GENERATE_DB: 'gndb',
+        HELP: 'help'
     },
     URL: {
         PROFILE: 'https://www.torn.com/profiles.php?XID=',
@@ -19,6 +20,9 @@ export const BotConstants = {
         MESSAGE: 'https://www.torn.com/messages.php#/p=compose&XID=',
         SEND_CASH: 'https://www.torn.com/sendcash.php#/XID=',
         TRADE: 'https://www.torn.com/trade.php#step=start&userID='
+    },
+    INFO: {
+        COMMAND_LIST: 'Here is a list of possible commands: '
     },
     ERROR: {
         NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',
