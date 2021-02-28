@@ -10,7 +10,6 @@ export const BotConstants = {
         STOCK: 'stock',
         USER: 'user',
         HELP: 'help',
-        ADMIN_HELP: 'ahelp',
         ADMIN: {
             ADD_ADMIN_CHANNEL: 'addadminchannel',
             DELETE_ADMIN_CHANNEL: 'deleteadminchannel',
@@ -18,8 +17,24 @@ export const BotConstants = {
             ADD_ROLE: 'addrole',
             ADD_USER_ROLE: 'assignrole',
             ADD_USER: 'adduser'
+        },
+        DESC: {
+            PING: 'Pong!',
+            QUOTES: 'Generates a random quote.. yay..',
+            STOCK: 'Gives you information about witchcraft.',
+            USER: 'Displays the profile information of a Torn User (e.g. !user 1)',
+            HELP: 'This... duh..',
+            ADMIN: {
+                ADD_ADMIN_CHANNEL: 'addadminchannel',
+                DELETE_ADMIN_CHANNEL: 'deleteadminchannel',
+                GENERATE_DB: 'Generate the database (ONLY USE ONCE).',
+                ADD_ROLE: 'addrole',
+                ADD_USER_ROLE: 'assignrole',
+                ADD_USER: 'adduser'
+            }
+
+
         }
-        
     },
     URL: {
         PROFILE: 'https://www.torn.com/profiles.php?XID=',
@@ -32,8 +47,13 @@ export const BotConstants = {
         TRADE: 'https://www.torn.com/trade.php#step=start&userID='
     },
     INFO: {
-        COMMAND_LIST: 'Here is a list of possible commands: ',
-        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: '
+        COMMAND_LIST: {
+            TITLE: 'List o\' Commands',
+            DESC: 'Here is a list of possible commands: ',
+            COMMAND_TITLE: 'Command',
+            COMMAND_DESC: 'Description (what it does)',
+            FOOTER: 'JUX HQ - !Help command',
+        }
     },
     ERROR: {
         NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',
