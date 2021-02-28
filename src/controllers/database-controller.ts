@@ -1,5 +1,5 @@
 import { injectable } from "inversify"
-import { Client } from "pg"
+import { Client, QueryResult } from "pg"
 import * as fs from 'fs';
 import * as path from 'path'
 
@@ -40,16 +40,32 @@ export class DatabaseController {
   }
 
   public async createTables() {
-    let testdb;
+    let db;
     try {
-      testdb = this.dbConnect();
+      db = this.dbConnect();
       const query = fs.readFileSync(path.join(__dirname, '../../sql/create-tables.sql')).toString();
-      await testdb.query(query).catch((err) => {console.log(err)});
+      await db.query(query).catch((err) => {console.log(err)});
       console.log('Table is successfully created');
     } catch (err) {
       console.log(err.stack);
     } finally {
-      testdb?.end();
+      db?.end();
     }
   }
+
+  public async executeQuery(query: string): Promise<QueryResult<any>>{
+    let db;
+    try {
+      db = this.dbConnect();
+      return await db.query(query).catch((err) => new Promise<QueryResult<any>>(err));
+    } catch (err) {
+      console.log(err.stack);
+      return new Promise<QueryResult<any>>(err);
+    } finally {
+      db?.end();
+    }
+
+    
+  }
+
 }
