@@ -22,7 +22,7 @@ export const BotConstants = {
             PING: 'Pong!',
             QUOTES: 'Generates a random quote.. yay..',
             STOCK: 'Gives you information about witchcraft.',
-            USER: 'Displays the profile information of a Torn User (e.g. !user 1)',
+            USER: 'Displays the profile information of a User.',
             HELP: 'This... duh..',
             ADMIN: {
                 ADD_ADMIN_CHANNEL: 'addadminchannel',
