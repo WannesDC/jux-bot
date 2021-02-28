@@ -5,6 +5,7 @@ import {UserModule} from "../modules/user-info/user-info";
 import {BotConstants} from "../bot-constants";
 import {RandomResponses} from "../modules/random-responses/random-responses";
 import {DatabaseController} from "./database-controller";
+<<<<<<< HEAD
 
 class Command {
     obj: Object;
@@ -16,13 +17,19 @@ class Command {
         this.func = func;
     }
 }
+=======
+>>>>>>> develop
 
 @injectable()
 export class MessageResponder {
     private prefix: string;
     private random: RandomResponses;
     private db: DatabaseController;
+<<<<<<< HEAD
     private modules: Map<String, Command>;
+=======
+    private modules: Map<String, Function>;
+>>>>>>> develop
 
     constructor(
         @inject(TYPES.UserModule) userModule: UserModule,
@@ -35,10 +42,17 @@ export class MessageResponder {
         this.db = db;
 
         this.modules = new Map([
+<<<<<<< HEAD
             [BotConstants.COMMANDS.USER, new Command(userModule, userModule.createProfileMessage)],
             [BotConstants.COMMANDS.PING, new Command(this, this.handleMessage)],
             [BotConstants.COMMANDS.QUOTES, new Command(this, this.handleMessage)],
             [BotConstants.COMMANDS.STOCK, new Command(this, this.handleMessage)]
+=======
+            [BotConstants.COMMANDS.USER, userModule.createProfileMessage],
+            [BotConstants.COMMANDS.PING, this.handleMessage],
+            [BotConstants.COMMANDS.QUOTES, this.handleMessage],
+            [BotConstants.COMMANDS.STOCK, this.handleMessage]
+>>>>>>> develop
         ])
     }
 
@@ -51,9 +65,14 @@ export class MessageResponder {
         // Handle modules from map.
         if (message.content.startsWith(this.prefix)) {
             let command = message.content.split(" ")[0].substr(1);
+<<<<<<< HEAD
             let commandObj = this.modules.get(command);
             if (commandObj) {
                 await commandObj.func.call(commandObj.obj, message);
+=======
+            if (this.modules.has(command)) {
+                await (this.modules.get(command) || this.handleMessage).call(this, message);
+>>>>>>> develop
                 return message.delete();
             }
         }
