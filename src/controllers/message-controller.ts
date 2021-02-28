@@ -19,10 +19,10 @@ class Command {
 
 @injectable()
 export class MessageResponder {
-  private prefix: string;
-  private random: RandomResponses;
-  private db: DatabaseController;
-  private modules: Map<String, Command>;
+    private prefix: string;
+    private random: RandomResponses;
+    private db: DatabaseController;
+    private modules: Map<String, Command>;
 
     constructor(
         @inject(TYPES.UserModule) userModule: UserModule,
@@ -56,6 +56,11 @@ export class MessageResponder {
                 await commandObj.func.call(commandObj.obj, message);
                 return message.delete();
             }
+        }
+
+        if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
+            message.reply(BotConstants.INFO.COMMAND_LIST + Array.from(this.modules.keys()).join(", "));
+            return message.delete();
         }
 
         if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.GENERATE_DB) && message.author.id === '182150558638014464') {
