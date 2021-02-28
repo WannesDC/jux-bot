@@ -30,14 +30,14 @@ export class ManagementModule {
   public addUser(message: Message) {
     let variables: string[] = message.content.split(" ");
 
-    if (variables.length != 4) {
+    if (variables.length != 5) {
       message.reply(BotConstants.ERROR.ARGUMENT_ERROR);
       return;
     }
     let player_id = variables[1];
     let user_name = variables[2];
     let api_key = variables[3];
-    let user_id = message.author.id;
+    let user_id = variables[4];
 
     this.sandbox.addUser(player_id, user_name, api_key, user_id);
   }
