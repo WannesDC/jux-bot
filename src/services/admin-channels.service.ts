@@ -5,7 +5,7 @@ import { channelEntity } from "../types/database-entities/channel-entity";
 
 @injectable()
 export class AdminChannelsService {
-  constructor(@inject(TYPES.DatabaseUrl) private db: DatabaseController) {}
+  constructor(@inject(TYPES.DatabaseController) private db: DatabaseController) {}
 
   public async getAdminChannels(): Promise<channelEntity[]> {
     let query = `

@@ -1,7 +1,8 @@
 export const BotConstants = {
     ROLES: {
         CLOGS_ROLE: 'clogs',
-        STEP_LEADER_ROLE: 'Step Leaders'
+        STEP_LEADER_ROLE: 'Step Leaders',
+        SUPER_ADMIN: '1'
     },
     COMMANDS: {
         PING: 'ping',
@@ -14,6 +15,9 @@ export const BotConstants = {
             ADD_ADMIN_CHANNEL: 'addadminchannel',
             DELETE_ADMIN_CHANNEL: 'deleteadminchannel',
             GENERATE_DB: 'gndb',
+            ADD_ROLE: 'addrole',
+            ADD_USER_ROLE: 'assignrole',
+            ADD_USER: 'adduser'
         }
         
     },
@@ -29,13 +33,15 @@ export const BotConstants = {
     },
     INFO: {
         COMMAND_LIST: 'Here is a list of possible commands: ',
-        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: '
+        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: ',
+        SUPER_USER: '182150558638014464'
     },
     ERROR: {
         NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',
         PLAYER_ID: 'I\'m sorry I couldn\'t find a user with id: ',
         PLAYER_ID_NO_NUMBER: 'potato, use an actual ID please',
-        NO_ID: 'Seems you forgot to give me an ID!'
+        NO_ID: 'Seems you forgot to give me an ID!',
+        ARGUMENT_ERROR: 'Are you sure you provided everything I need?'
     },
     PROFILE: {
         DESCRIPTION: 'Level $1 of $2',

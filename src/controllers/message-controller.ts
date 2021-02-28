@@ -28,7 +28,7 @@ export class MessageResponder {
     @inject(TYPES.UserModule) userModule: UserModule,
     @inject(TYPES.Prefix) prefix: string,
     @inject(TYPES.RandomResponses) random: RandomResponses,
-    @inject(TYPES.DatabaseUrl) private db: DatabaseController,
+    @inject(TYPES.DatabaseController) private db: DatabaseController,
     @inject(TYPES.ManagementModule) private managementModule: ManagementModule
   ) {
     this.prefix = prefix;
@@ -57,6 +57,18 @@ export class MessageResponder {
         BotConstants.COMMANDS.ADMIN.DELETE_ADMIN_CHANNEL,
         new Command(managementModule, managementModule.deleteAdminChannel),
       ],
+      [
+        BotConstants.COMMANDS.ADMIN.ADD_USER,
+        new Command(managementModule, managementModule.addUser),
+      ],
+      [
+        BotConstants.COMMANDS.ADMIN.ADD_ROLE,
+        new Command(managementModule, managementModule.addRole),
+      ],
+      [
+        BotConstants.COMMANDS.ADMIN.ADD_USER_ROLE,
+        new Command(managementModule, managementModule.addUserRole),
+      ],
     ]);
   }
 
@@ -73,14 +85,17 @@ export class MessageResponder {
       if (commandObj) {
         await commandObj.func.call(commandObj.obj, message);
         return message.delete();
-      } else if (
-        adminCommandObj
-        // &&
-        // this.managementModule.isUserAdmin(message.author.id)
-      ) {
-        await adminCommandObj.func.call(adminCommandObj.obj, message);
-        return message.delete();
+      }else if (adminCommandObj) {
+        this.managementModule
+        .isUserAdmin(message.author.id)
+        .then(async result => {
+          if ((result === true || message.author.id===(BotConstants.INFO.SUPER_USER)) && adminCommandObj) {
+            await adminCommandObj.func.call(adminCommandObj.obj, message);
+            return message.delete();
+          }
+        });
       }
+      
     }
 
     if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {

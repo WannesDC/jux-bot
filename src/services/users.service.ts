@@ -1,11 +1,14 @@
 import { inject, injectable } from "inversify";
+import { BotConstants } from "../bot-constants";
 import { DatabaseController } from "../controllers/database-controller";
 import { TYPES } from "../types";
 import { userEntity } from "../types/database-entities/user-entity";
 
 @injectable()
 export class UserService {
-  constructor(@inject(TYPES.DatabaseUrl) private db: DatabaseController) {}
+  constructor(
+    @inject(TYPES.DatabaseController) private db: DatabaseController
+  ) {}
 
   public addUser(
     player_id: string,
@@ -14,17 +17,17 @@ export class UserService {
     discord_user_id: string
   ) {
     let query = `
-        INSERT INTO users Values(${discord_user_id},${player_id},${player_name},${api_key}) ON CONFLICT DO NOTHING
+        INSERT INTO users VALUES ('${player_id}','${player_name}','${api_key}','${discord_user_id}') ON CONFLICT DO NOTHING
         `;
-    this.db.executeQuery(query);
+    this.db.executeQuery(query).catch((err) => console.log(err));
   }
 
-  public updateUser() {
-    let query = `
-        UPDATE role SET 
-        `;
-    this.db.executeQuery(query);
-  }
+  //   public updateUser() {
+  //     let query = `
+  //         UPDATE role SET
+  //         `;
+  //     this.db.executeQuery(query);
+  //   }
 
   public async getUserById(user_id: string): Promise<userEntity> {
     let query = `
@@ -48,11 +51,25 @@ export class UserService {
 
   public async isUserAdmin(user_id: string): Promise<boolean> {
     let query = `
-    SELECT role_id FROM users u WHERE discord_user_id = ${user_id} JOIN user_roles ur ON (u.discord_user_id = ur.discord_user_id)
+    SELECT role_id FROM users u INNER JOIN user_roles ur ON (u.discord_user_id = ur.discord_user_id) WHERE ur.discord_user_id = '${user_id}' 
 `;
     //get role_id, check whether it's an admin role
-    return await this.db.executeQuery(query).then((result) => {
-      return result.rows.find(e => e.role_id === 'whatever_id_superadmin has');
-    });
+    return await this.db
+      .executeQuery(query)
+      .then((result) => {
+        return result.rows.find(
+          (e) => e.role_id === BotConstants.ROLES.SUPER_ADMIN
+        );
+      })
+      .then(() => {
+        return true;
+      });
+  }
+
+  public addRoleToUser(user_id: string, role_id: string) {
+    let query = `
+    INSERT INTO user_roles Values(${user_id},${role_id}) ON CONFLICT DO NOTHING
+    `;
+    this.db.executeQuery(query);
   }
 }
