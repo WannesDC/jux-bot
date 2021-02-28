@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- Version 1.1.0
+ALTER TABLE IF EXISTS users DROP CONSTRAINT users_pk;
 ALTER TABLE IF EXISTS users ADD CONSTRAINT users_pk PRIMARY KEY (discord_user_id);
 
 CREATE TABLE IF NOT EXISTS role (
