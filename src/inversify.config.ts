@@ -28,6 +28,7 @@ container.bind<Client>(TYPES.Client).toConstantValue(new Client());
 container.bind<string>(TYPES.Token).toConstantValue(<string>process.env.TOKEN);
 container.bind<string>(TYPES.HostApi).toConstantValue(<string>process.env.HOSTAPI);
 container.bind<string>(TYPES.Prefix).toConstantValue(<string>process.env.PREFIX);
+container.bind<string>(TYPES.SuperUser).toConstantValue(<string>process.env.SUPERUSER);
 
 //Framework
 container.bind<MessageResponder>(TYPES.MessageResponder).to(MessageResponder).inSingletonScope();

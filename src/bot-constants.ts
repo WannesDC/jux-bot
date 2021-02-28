@@ -33,15 +33,15 @@ export const BotConstants = {
     },
     INFO: {
         COMMAND_LIST: 'Here is a list of possible commands: ',
-        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: ',
-        SUPER_USER: '182150558638014464'
+        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: '
     },
     ERROR: {
         NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',
         PLAYER_ID: 'I\'m sorry I couldn\'t find a user with id: ',
         PLAYER_ID_NO_NUMBER: 'potato, use an actual ID please',
         NO_ID: 'Seems you forgot to give me an ID!',
-        ARGUMENT_ERROR: 'Are you sure you provided everything I need?'
+        ARGUMENT_ERROR: 'Are you sure you provided everything I need?',
+        NO_ADMIN: 'You are not an admin of this bot!'
     },
     PROFILE: {
         DESCRIPTION: 'Level $1 of $2',

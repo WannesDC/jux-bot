@@ -23,16 +23,19 @@ export class MessageResponder {
   private random: RandomResponses;
   private modules: Map<String, Command>;
   private adminModules: Map<String, Command>;
+  private superUser: string;
 
   constructor(
     @inject(TYPES.UserModule) userModule: UserModule,
     @inject(TYPES.Prefix) prefix: string,
     @inject(TYPES.RandomResponses) random: RandomResponses,
     @inject(TYPES.DatabaseController) private db: DatabaseController,
-    @inject(TYPES.ManagementModule) private managementModule: ManagementModule
+    @inject(TYPES.ManagementModule) private managementModule: ManagementModule,
+    @inject(TYPES.SuperUser) superUser: string,
   ) {
     this.prefix = prefix;
     this.random = random;
+    this.superUser =superUser
 
     this.modules = new Map([
       [
@@ -86,16 +89,20 @@ export class MessageResponder {
         await commandObj.func.call(commandObj.obj, message);
         return message.delete();
       }else if (adminCommandObj) {
+        //Checks whether the user is an admin, or me
+        //All of these commands require you to have a database
+        //test quickly by adding your discord user id to the right env variable
         this.managementModule
         .isUserAdmin(message.author.id)
         .then(async result => {
-          if ((result === true || message.author.id===(BotConstants.INFO.SUPER_USER)) && adminCommandObj) {
+          if ((result === true || message.author.id===(this.superUser)) && adminCommandObj) {
             await adminCommandObj.func.call(adminCommandObj.obj, message);
             return message.delete();
+          } else {
+              message.reply(BotConstants.ERROR.NO_ADMIN);
           }
         });
       }
-      
     }
 
     if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {

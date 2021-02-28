@@ -21,7 +21,6 @@ export class ManagementSandbox {
   }
 
   public addAdminChannel(channel_id: string) {
-      console.log('test');
     this.adminChannels.addAdminChannel(channel_id);
   }
 

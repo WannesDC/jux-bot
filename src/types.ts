@@ -6,6 +6,7 @@ export const TYPES = {
     HostApi: Symbol("HostApi"),
     Prefix: Symbol("Prefix"),
     DatabaseUrl: Symbol("DatabaseUrl"),
+    SuperUser: Symbol("SuperUser"),
     //framework
     MessageResponder: Symbol("MessageResponder"),
     Selector: Symbol("Selector"),
