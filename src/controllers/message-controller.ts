@@ -105,6 +105,11 @@ export class MessageResponder {
       }
     }
 
+    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.ADMIN.GENERATE_DB) && message.author.id===(this.superUser)) {
+      this.db.createTables();
+      return message.delete();
+    }
+
     if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
       message.reply(
         BotConstants.INFO.COMMAND_LIST +
