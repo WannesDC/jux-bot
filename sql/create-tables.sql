@@ -19,6 +19,13 @@ CREATE TABLE IF NOT EXISTS role (
 
 CREATE TABLE IF NOT EXISTS user_roles (
         discord_user_id varchar,
-        role_id varchar
+        role_id varchar,
+        constraint users_FK foreign key(discord_user_id),
+        constraint role_id foreign key(role_id),
 );
+
+CREATE TABLE IF NOT EXISTS admin_channels {
+        channel_id,
+        constraint admin_channels_pk primary key (channel_id)
+}
 

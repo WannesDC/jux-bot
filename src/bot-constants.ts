@@ -8,8 +8,12 @@ export const BotConstants = {
         QUOTES: 'quotes',
         STOCK: 'stock',
         USER: 'user',
-        GENERATE_DB: 'gndb',
-        HELP: 'help'
+        HELP: 'help',
+        ADMIN: {
+            ADD_ADMIN_CHANNEL: 'aac',
+            GENERATE_DB: 'gndb',
+        }
+        
     },
     URL: {
         PROFILE: 'https://www.torn.com/profiles.php?XID=',

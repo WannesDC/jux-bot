@@ -4,7 +4,7 @@ import {TYPES} from "./types";
 import {Bot} from "./bot";
 import {Client} from "discord.js";
 import { MessageResponder } from "./controllers/message-controller";
-import { HttpClient } from "./services/http-client";
+import { HttpClientService } from "./services/http-client.service";
 import { UserSandbox } from "./modules/user-info/user.sandbox";
 import { UserModule } from "./modules/user-info/user-info";
 import { StocksSandbox } from "./modules/stocks/stocks.sandbox";
@@ -13,6 +13,10 @@ import { Selector } from "./utils/selector";
 import { CustomParsers } from "./utils/custom-parsers";
 import { RandomResponses } from "./modules/random-responses/random-responses";
 import { DatabaseController } from "./controllers/database-controller";
+import { ManagementModule } from "./modules/management/management";
+import { AdminChannelsService } from "./services/admin-channels.service";
+import { RoleService } from "./services/roles.service";
+import { UserService } from "./services/users.service";
 
 let container = new Container();
 
@@ -26,10 +30,15 @@ container.bind<string>(TYPES.Prefix).toConstantValue(<string>process.env.PREFIX)
 
 //Framework
 container.bind<MessageResponder>(TYPES.MessageResponder).to(MessageResponder).inSingletonScope();
-container.bind<HttpClient>(TYPES.HttpClient).to(HttpClient).inSingletonScope();
 container.bind<Selector>(TYPES.Selector).to(Selector).inSingletonScope();
 container.bind<CustomParsers>(TYPES.CustomParsers).to(CustomParsers).inSingletonScope();
 container.bind<DatabaseController>(TYPES.DatabaseUrl).to(DatabaseController).inSingletonScope();
+
+//Services
+container.bind<HttpClientService>(TYPES.HttpClientService).to(HttpClientService).inSingletonScope();
+container.bind<AdminChannelsService>(TYPES.AdminChannelsService).to(AdminChannelsService).inSingletonScope();
+container.bind<RoleService>(TYPES.RoleService).to(RoleService).inSingletonScope();
+container.bind<UserService>(TYPES.UserService).to(UserService).inSingletonScope();
 
 //User Module
 container.bind<UserSandbox>(TYPES.UserSandbox).to(UserSandbox).inSingletonScope();
@@ -41,4 +50,7 @@ container.bind<StocksModule>(TYPES.StocksModule).to(StocksModule).inSingletonSco
 
 //Random Module
 container.bind<RandomResponses>(TYPES.RandomResponses).to(RandomResponses).inSingletonScope();
+
+//Random Module
+container.bind<ManagementModule>(TYPES.ManagementModule).to(ManagementModule).inSingletonScope();
 export default container;

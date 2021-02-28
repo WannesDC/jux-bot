@@ -1,17 +1,17 @@
 import { injectable, inject } from "inversify";
 import { stock } from "../../types/stock";
 import { TYPES } from "../../types";
-import { HttpClient } from "../../services/http-client";
+import { HttpClientService } from "../../services/http-client.service";
 import { ApiCallEnum } from "../../enumerations/api-call-enum";
 import { AxiosResponse } from "axios";
 
 @injectable()
 export class StocksSandbox {
 
-    private httpClient: HttpClient;
+    private httpClient: HttpClientService;
 
     constructor(
-        @inject(TYPES.HttpClient) client: HttpClient
+        @inject(TYPES.HttpClientService) client: HttpClientService
       ) {
         this.httpClient = client;
       }

@@ -1,77 +1,100 @@
-import {Message} from "discord.js";
-import {inject, injectable} from "inversify";
-import {TYPES} from "../types";
-import {UserModule} from "../modules/user-info/user-info";
-import {BotConstants} from "../bot-constants";
-import {RandomResponses} from "../modules/random-responses/random-responses";
-import {DatabaseController} from "./database-controller";
+import { Message } from "discord.js";
+import { inject, injectable } from "inversify";
+import { TYPES } from "../types";
+import { UserModule } from "../modules/user-info/user-info";
+import { BotConstants } from "../bot-constants";
+import { RandomResponses } from "../modules/random-responses/random-responses";
+import { ManagementModule } from "../modules/management/management";
+import { DatabaseController } from "./database-controller";
 
 class Command {
-    obj: Object;
-    func: Function;
+  obj: Object;
+  func: Function;
 
-    constructor(obj: Object, func: Function
-    ) {
-        this.obj = obj;
-        this.func = func;
-    }
+  constructor(obj: Object, func: Function) {
+    this.obj = obj;
+    this.func = func;
+  }
 }
 
 @injectable()
 export class MessageResponder {
-    private prefix: string;
-    private random: RandomResponses;
-    private db: DatabaseController;
-    private modules: Map<String, Command>;
+  private prefix: string;
+  private random: RandomResponses;
+  private modules: Map<String, Command>;
+  private adminModules: Map<String, Command>;
 
-    constructor(
-        @inject(TYPES.UserModule) userModule: UserModule,
-        @inject(TYPES.Prefix) prefix: string,
-        @inject(TYPES.RandomResponses) random: RandomResponses,
-        @inject(TYPES.DatabaseUrl) db: DatabaseController
+  constructor(
+    @inject(TYPES.UserModule) userModule: UserModule,
+    @inject(TYPES.Prefix) prefix: string,
+    @inject(TYPES.RandomResponses) random: RandomResponses,
+    @inject(TYPES.DatabaseUrl) private db: DatabaseController,
+    @inject(TYPES.ManagementModule) private managementModule: ManagementModule
+  ) {
+    this.prefix = prefix;
+    this.random = random;
+
+    this.modules = new Map([
+      [
+        BotConstants.COMMANDS.USER,
+        new Command(userModule, userModule.createProfileMessage),
+      ],
+      [BotConstants.COMMANDS.PING, new Command(this, this.handleMessage)],
+      [BotConstants.COMMANDS.QUOTES, new Command(this, this.handleMessage)],
+      [BotConstants.COMMANDS.STOCK, new Command(this, this.handleMessage)],
+    ]);
+
+    this.adminModules = new Map([
+      [
+        BotConstants.COMMANDS.ADMIN.GENERATE_DB,
+        new Command(db, db.createTables),
+      ],
+      [
+        BotConstants.COMMANDS.ADMIN.GENERATE_DB,
+        new Command(managementModule, managementModule.addAdminChannel),
+      ],
+    ]);
+  }
+
+  public async handleMessage(message: Message) {
+    message.reply(BotConstants.ERROR.NOT_IMPLEMENTED);
+  }
+
+  async handle(message: Message): Promise<Message | Message[]> {
+    // Handle modules from map.
+    if (message.content.startsWith(this.prefix)) {
+      let command = message.content.split(" ")[0].substr(1);
+      let commandObj = this.modules.get(command);
+      let adminCommandObj = this.adminModules.get(command);
+      if (commandObj) {
+        await commandObj.func.call(commandObj.obj, message);
+        return message.delete();
+      } else if (
+        adminCommandObj &&
+        this.managementModule.isUserAdmin(message.author.id)
+      ) {
+        await adminCommandObj.func.call(adminCommandObj.obj, message);
+        return message.delete();
+      }
+    }
+
+    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
+      message.reply(
+        BotConstants.INFO.COMMAND_LIST +
+          Array.from(this.modules.keys()).join(", ")
+      );
+      return message.delete();
+    }
+
+    // Easter Eggs
+    if (
+      !this.managementModule
+        .getAdminChannels()
+        .find((e) => e === message.channel.id)
     ) {
-        this.prefix = prefix;
-        this.random = random;
-        this.db = db;
-
-        this.modules = new Map([
-            [BotConstants.COMMANDS.USER, new Command(userModule, userModule.createProfileMessage)],
-            [BotConstants.COMMANDS.PING, new Command(this, this.handleMessage)],
-            [BotConstants.COMMANDS.QUOTES, new Command(this, this.handleMessage)],
-            [BotConstants.COMMANDS.STOCK, new Command(this, this.handleMessage)]
-        ])
+      this.random.randomResponses(message);
     }
 
-    public async handleMessage(message: Message) {
-        message.reply(BotConstants.ERROR.NOT_IMPLEMENTED);
-    }
-
-    async handle(message: Message): Promise<Message | Message[]> {
-
-        // Handle modules from map.
-        if (message.content.startsWith(this.prefix)) {
-            let command = message.content.split(" ")[0].substr(1);
-            let commandObj = this.modules.get(command);
-            if (commandObj) {
-                await commandObj.func.call(commandObj.obj, message);
-                return message.delete();
-            }
-        }
-
-        if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
-            message.reply(BotConstants.INFO.COMMAND_LIST + Array.from(this.modules.keys()).join(", "));
-            return message.delete();
-        }
-
-        if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.GENERATE_DB) && message.author.id === '182150558638014464') {
-            this.db.createTables();
-            return message.delete();
-        }
-
-        // Easter Eggs
-
-        this.random.randomResponses(message);
-
-        return Promise.reject();
-    }
+    return Promise.reject();
+  }
 }
