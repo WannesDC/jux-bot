@@ -5,6 +5,7 @@ import { UserModule } from "../modules/user-info/user-info";
 import { BotConstants } from "../bot-constants";
 import { RandomResponses } from "../modules/random-responses/random-responses";
 import { DatabaseController } from "./database-controller";
+import { MockingSpongebob } from "../modules/mocking-spongebob-gen/mocking-spongebob-gen";
 
 @injectable()
 export class MessageResponder {
@@ -17,7 +18,8 @@ export class MessageResponder {
     @inject(TYPES.UserModule) userModule: UserModule,
     @inject(TYPES.Prefix) prefix: string,
     @inject(TYPES.RandomResponses) random: RandomResponses,
-    @inject(TYPES.DatabaseUrl) db: DatabaseController
+    @inject(TYPES.DatabaseUrl) db: DatabaseController,
+    @inject(TYPES.MockingSpongeBob) private mockingSpongebobGen: MockingSpongebob
   ) {
     this.userModule = userModule;
     this.prefix = prefix;
@@ -55,8 +57,14 @@ export class MessageResponder {
       return message.delete();
     }
 
-    // Easter Eggs
+    if(this.mockingSpongebobGen.shouldMock()){
+      console.log(message.cleanContent);
+      let url = await this.mockingSpongebobGen.mockMessage(message.cleanContent);
+      return message.channel.send(url);
+    }
 
+    // Easter Eggs
+    
     this.random.randomResponses(message);
 
     return Promise.reject();

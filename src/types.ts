@@ -19,5 +19,7 @@ export const TYPES = {
     StocksSandbox: Symbol("StocksSandbox"),
     StocksModule: Symbol("StocksModule"),
     //Random Module
-    RandomResponses: Symbol("RandomResponses")
+    RandomResponses: Symbol("RandomResponses"),
+    //MockingSpongebob Module
+    MockingSpongeBob: Symbol("MocKiNgSpONgebobMeMEGeNERatoR")
   };

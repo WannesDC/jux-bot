@@ -13,8 +13,10 @@ import { Selector } from "./utils/selector";
 import { CustomParsers } from "./utils/custom-parsers";
 import { RandomResponses } from "./modules/random-responses/random-responses";
 import { DatabaseController } from "./controllers/database-controller";
+import { MockingSpongebob } from "./modules/mocking-spongebob-gen/mocking-spongebob-gen";
 
 let container = new Container();
+
 
 container.bind<Bot>(TYPES.Bot).to(Bot).inSingletonScope();
 container.bind<Client>(TYPES.Client).toConstantValue(new Client());
@@ -41,4 +43,8 @@ container.bind<StocksModule>(TYPES.StocksModule).to(StocksModule).inSingletonSco
 
 //Random Module
 container.bind<RandomResponses>(TYPES.RandomResponses).to(RandomResponses).inSingletonScope();
+
+//Mocking Spongebob Module
+container.bind<MockingSpongebob>(TYPES.MockingSpongeBob).to(MockingSpongebob).inSingletonScope();
+
 export default container;
