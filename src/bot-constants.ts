@@ -1,15 +1,25 @@
 export const BotConstants = {
     ROLES: {
         CLOGS_ROLE: 'clogs',
-        STEP_LEADER_ROLE: 'Step Leaders'
+        STEP_LEADER_ROLE: 'Step Leaders',
+        SUPER_ADMIN: '1'
     },
     COMMANDS: {
         PING: 'ping',
         QUOTES: 'quotes',
         STOCK: 'stock',
         USER: 'user',
-        GENERATE_DB: 'gndb',
-        HELP: 'help'
+        HELP: 'help',
+        ADMIN_HELP: 'ahelp',
+        ADMIN: {
+            ADD_ADMIN_CHANNEL: 'addadminchannel',
+            DELETE_ADMIN_CHANNEL: 'deleteadminchannel',
+            GENERATE_DB: 'gndb',
+            ADD_ROLE: 'addrole',
+            ADD_USER_ROLE: 'assignrole',
+            ADD_USER: 'adduser'
+        }
+        
     },
     URL: {
         PROFILE: 'https://www.torn.com/profiles.php?XID=',
@@ -22,13 +32,16 @@ export const BotConstants = {
         TRADE: 'https://www.torn.com/trade.php#step=start&userID='
     },
     INFO: {
-        COMMAND_LIST: 'Here is a list of possible commands: '
+        COMMAND_LIST: 'Here is a list of possible commands: ',
+        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: '
     },
     ERROR: {
         NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',
         PLAYER_ID: 'I\'m sorry I couldn\'t find a user with id: ',
         PLAYER_ID_NO_NUMBER: 'potato, use an actual ID please',
-        NO_ID: 'Seems you forgot to give me an ID!'
+        NO_ID: 'Seems you forgot to give me an ID!',
+        ARGUMENT_ERROR: 'Are you sure you provided everything I need?',
+        NO_ADMIN: 'You are not an admin of this bot!'
     },
     PROFILE: {
         DESCRIPTION: 'Level $1 of $2',

@@ -6,12 +6,17 @@ export const TYPES = {
     HostApi: Symbol("HostApi"),
     Prefix: Symbol("Prefix"),
     DatabaseUrl: Symbol("DatabaseUrl"),
+    SuperUser: Symbol("SuperUser"),
     //framework
     MessageResponder: Symbol("MessageResponder"),
-    HttpClient: Symbol("HttpClient"),
     Selector: Symbol("Selector"),
     CustomParsers: Symbol("CustomParsers"),
     DatabaseController: Symbol('DatabaseController'),
+    //Services
+    HttpClientService: Symbol("HttpClientService"),
+    AdminChannelsService: Symbol("AdminChannelsService"),
+    RoleService: Symbol("RoleService"),
+    UserService: Symbol("UserService"),
     //User Module
     UserSandbox: Symbol("UserSandbox"),
     UserModule: Symbol("UserModule"),
@@ -19,5 +24,8 @@ export const TYPES = {
     StocksSandbox: Symbol("StocksSandbox"),
     StocksModule: Symbol("StocksModule"),
     //Random Module
-    RandomResponses: Symbol("RandomResponses")
+    RandomResponses: Symbol("RandomResponses"),
+    //Management Module
+    ManagementModule: Symbol("ManagementModule"),
+    ManagementSandbox: Symbol("ManagementSandbox")
   };

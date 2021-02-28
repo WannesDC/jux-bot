@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { ApiCallEnum } from "../enumerations/api-call-enum";
 
 @injectable()
-export class HttpClient {
+export class HttpClientService {
 
     private readonly key: string;
 

@@ -1,5 +1,5 @@
 import { injectable, inject } from "inversify";
-import { HttpClient } from "../../services/http-client";
+import { HttpClientService } from "../../services/http-client.service";
 import { TYPES } from "../../types";
 import { profile } from "../../types/profile";
 import { ApiCallEnum } from "../../enumerations/api-call-enum";
@@ -8,10 +8,10 @@ import { AxiosResponse } from "axios";
 @injectable()
 export class UserSandbox {
 
-    private httpClient: HttpClient;
+    private httpClient: HttpClientService;
 
     constructor(
-        @inject(TYPES.HttpClient) client: HttpClient
+        @inject(TYPES.HttpClientService) client: HttpClientService
       ) {
         this.httpClient = client;
       }
