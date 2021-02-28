@@ -25,5 +25,6 @@ export const TYPES = {
     //Random Module
     RandomResponses: Symbol("RandomResponses"),
     //Management Module
-    ManagementModule: Symbol("ManagementModule")
+    ManagementModule: Symbol("ManagementModule"),
+    ManagementSandbox: Symbol("ManagementSandbox")
   };

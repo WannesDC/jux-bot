@@ -9,8 +9,10 @@ export const BotConstants = {
         STOCK: 'stock',
         USER: 'user',
         HELP: 'help',
+        ADMIN_HELP: 'ahelp',
         ADMIN: {
-            ADD_ADMIN_CHANNEL: 'aac',
+            ADD_ADMIN_CHANNEL: 'addadminchannel',
+            DELETE_ADMIN_CHANNEL: 'deleteadminchannel',
             GENERATE_DB: 'gndb',
         }
         
@@ -26,7 +28,8 @@ export const BotConstants = {
         TRADE: 'https://www.torn.com/trade.php#step=start&userID='
     },
     INFO: {
-        COMMAND_LIST: 'Here is a list of possible commands: '
+        COMMAND_LIST: 'Here is a list of possible commands: ',
+        ADMIN_COMMAND_LIST: 'Here is a list of possible commands for bot-admins: '
     },
     ERROR: {
         NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',

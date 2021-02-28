@@ -17,6 +17,7 @@ import { ManagementModule } from "./modules/management/management";
 import { AdminChannelsService } from "./services/admin-channels.service";
 import { RoleService } from "./services/roles.service";
 import { UserService } from "./services/users.service";
+import { ManagementSandbox } from "./modules/management/management.sandbox";
 
 let container = new Container();
 
@@ -53,4 +54,5 @@ container.bind<RandomResponses>(TYPES.RandomResponses).to(RandomResponses).inSin
 
 //Random Module
 container.bind<ManagementModule>(TYPES.ManagementModule).to(ManagementModule).inSingletonScope();
+container.bind<ManagementSandbox>(TYPES.ManagementSandbox).to(ManagementSandbox).inSingletonScope();
 export default container;

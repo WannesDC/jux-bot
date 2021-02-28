@@ -55,7 +55,6 @@ export class DatabaseController {
 
   public async executeQuery(query: string): Promise<QueryResult<any>>{
     let db;
-    
     try {
       db = this.dbConnect();
       return await db.query(query).catch((err) => new Promise<QueryResult<any>>(err));

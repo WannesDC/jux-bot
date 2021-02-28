@@ -50,8 +50,12 @@ export class MessageResponder {
         new Command(db, db.createTables),
       ],
       [
-        BotConstants.COMMANDS.ADMIN.GENERATE_DB,
+        BotConstants.COMMANDS.ADMIN.ADD_ADMIN_CHANNEL,
         new Command(managementModule, managementModule.addAdminChannel),
+      ],
+      [
+        BotConstants.COMMANDS.ADMIN.DELETE_ADMIN_CHANNEL,
+        new Command(managementModule, managementModule.deleteAdminChannel),
       ],
     ]);
   }
@@ -70,8 +74,9 @@ export class MessageResponder {
         await commandObj.func.call(commandObj.obj, message);
         return message.delete();
       } else if (
-        adminCommandObj &&
-        this.managementModule.isUserAdmin(message.author.id)
+        adminCommandObj
+        // &&
+        // this.managementModule.isUserAdmin(message.author.id)
       ) {
         await adminCommandObj.func.call(adminCommandObj.obj, message);
         return message.delete();
@@ -86,14 +91,27 @@ export class MessageResponder {
       return message.delete();
     }
 
-    // Easter Eggs
     if (
-      !this.managementModule
-        .getAdminChannels()
-        .find((e) => e === message.channel.id)
+      message.content.startsWith(this.prefix + BotConstants.COMMANDS.ADMIN_HELP)
     ) {
-      this.random.randomResponses(message);
+      message.reply(
+        BotConstants.INFO.ADMIN_COMMAND_LIST +
+          Array.from(this.adminModules.keys()).join(", ")
+      );
+      return message.delete();
     }
+
+    // Easter Eggs
+    this.managementModule
+      .getAdminChannels()
+      .then((result) => {
+        if (!result.find((e) => e.channel_id === message.channel.id)) {
+          this.random.randomResponses(message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return Promise.reject();
   }
