@@ -94,15 +94,20 @@ export class MessageResponder {
         //test quickly by adding your discord user id to the right env variable
         this.managementModule
         .isUserAdmin(message.author.id)
-        .then(async result => {
+        .then(async (result: boolean) => {
           if ((result === true || message.author.id===(this.superUser)) && adminCommandObj) {
             await adminCommandObj.func.call(adminCommandObj.obj, message);
             return message.delete();
           } else {
               message.reply(BotConstants.ERROR.NO_ADMIN);
           }
-        });
+        }).catch((err : string) => message.reply(err));
       }
+    }
+
+    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.ADMIN.GENERATE_DB) && message.author.id===(this.superUser)) {
+      this.db.createTables();
+      return message.delete();
     }
 
     if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
@@ -126,12 +131,12 @@ export class MessageResponder {
     // Easter Eggs
     this.managementModule
       .getAdminChannels()
-      .then((result) => {
+      .then((result: any[]) => {
         if (!result.find((e) => e.channel_id === message.channel.id)) {
           this.random.randomResponses(message);
         }
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log(err);
       });
 
