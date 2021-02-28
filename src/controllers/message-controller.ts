@@ -1,64 +1,77 @@
-import { Message } from "discord.js";
-import { inject, injectable } from "inversify";
-import { TYPES } from "../types";
-import { UserModule } from "../modules/user-info/user-info";
-import { BotConstants } from "../bot-constants";
-import { RandomResponses } from "../modules/random-responses/random-responses";
-import { DatabaseController } from "./database-controller";
+import {Message} from "discord.js";
+import {inject, injectable} from "inversify";
+import {TYPES} from "../types";
+import {UserModule} from "../modules/user-info/user-info";
+import {BotConstants} from "../bot-constants";
+import {RandomResponses} from "../modules/random-responses/random-responses";
+import {DatabaseController} from "./database-controller";
+
+class Command {
+    obj: Object;
+    func: Function;
+
+    constructor(obj: Object, func: Function
+    ) {
+        this.obj = obj;
+        this.func = func;
+    }
+}
 
 @injectable()
 export class MessageResponder {
-  private userModule: UserModule;
-  private prefix: string;
-  private random: RandomResponses;
-  private db: DatabaseController;
+    private prefix: string;
+    private random: RandomResponses;
+    private db: DatabaseController;
+    private modules: Map<String, Command>;
 
-  constructor(
-    @inject(TYPES.UserModule) userModule: UserModule,
-    @inject(TYPES.Prefix) prefix: string,
-    @inject(TYPES.RandomResponses) random: RandomResponses,
-    @inject(TYPES.DatabaseUrl) db: DatabaseController
-  ) {
-    this.userModule = userModule;
-    this.prefix = prefix;
-    this.random = random;
-    this.db = db;
-  }
-
-  async handle(message: Message): Promise<Message | Message[]> {
-  
-
-    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.GENERATE_DB) && message.author.id === '182150558638014464') {
-      this.db.createTables();
-      return message.delete();
-    }
-
-    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.PING)) {
-      return message.channel.send("eurghhh... pong...");
-    }
-
-    //Quotes Module
-    if (
-      message.content.startsWith(this.prefix + BotConstants.COMMANDS.QUOTES)
+    constructor(
+        @inject(TYPES.UserModule) userModule: UserModule,
+        @inject(TYPES.Prefix) prefix: string,
+        @inject(TYPES.RandomResponses) random: RandomResponses,
+        @inject(TYPES.DatabaseUrl) db: DatabaseController
     ) {
-      return message.channel.send("quotes to be here soon");
+        this.prefix = prefix;
+        this.random = random;
+        this.db = db;
+
+        this.modules = new Map([
+            [BotConstants.COMMANDS.USER, new Command(userModule, userModule.createProfileMessage)],
+            [BotConstants.COMMANDS.PING, new Command(this, this.handleMessage)],
+            [BotConstants.COMMANDS.QUOTES, new Command(this, this.handleMessage)],
+            [BotConstants.COMMANDS.STOCK, new Command(this, this.handleMessage)]
+        ])
     }
 
-    // Stocks Module
-    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.STOCK)) {
-      return message.channel.send("stocks to be here soonnibbles");
+    public async handleMessage(message: Message) {
+        message.reply(BotConstants.ERROR.NOT_IMPLEMENTED);
     }
 
-    // Profile Module
-    if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.USER)) {
-      await this.userModule.createProfileMessage(message);
-      return message.delete();
+    async handle(message: Message): Promise<Message | Message[]> {
+
+        // Handle modules from map.
+        if (message.content.startsWith(this.prefix)) {
+            let command = message.content.split(" ")[0].substr(1);
+            let commandObj = this.modules.get(command);
+            if (commandObj) {
+                await commandObj.func.call(commandObj.obj, message);
+                return message.delete();
+            }
+        }
+
+        if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
+            message.reply(BotConstants.INFO.COMMAND_LIST + Array.from(this.modules.keys()).join(", "));
+            return message.delete();
+        }
+
+        if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.GENERATE_DB) && message.author.id === '182150558638014464') {
+            this.db.createTables();
+            return message.delete();
+        }
+
+        // Easter Eggs
+
+        this.random.randomResponses(message);
+
+        return Promise.reject();
     }
-
-    // Easter Eggs
-
-    this.random.randomResponses(message);
-
-    return Promise.reject();
-  }
 }
