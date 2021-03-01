@@ -7,6 +7,7 @@ export const BotConstants = {
     COMMANDS: {
         PING: 'ping',
         QUOTES: 'quotes',
+        ADDQUOTES: 'addquote',
         STOCK: 'stock',
         USER: 'user',
         HELP: 'help',
@@ -20,7 +21,8 @@ export const BotConstants = {
         },
         DESC: {
             PING: 'Pong!',
-            QUOTES: 'Generates a random quote.. yay..',
+            QUOTES: 'Generates a random quote (or give an ID!)',
+            ADDQUOTES: 'Add a quote',
             STOCK: 'Gives you information about witchcraft.',
             USER: 'Displays the profile information of a User.',
             HELP: 'This... duh..',
@@ -61,7 +63,7 @@ export const BotConstants = {
         PLAYER_ID_NO_NUMBER: 'potato, use an actual ID please',
         NO_ID: 'Seems you forgot to give me an ID!',
         ARGUMENT_ERROR: 'Are you sure you provided everything I need?',
-        NO_ADMIN: 'You are not an admin of this bot!'
+        NO_ADMIN: 'You are not an admin of this bot!',
     },
     PROFILE: {
         DESCRIPTION: 'Level $1 of $2',
@@ -88,6 +90,10 @@ export const BotConstants = {
             LINKS: '[Attack]($1) | [Bounty]($2) | [Message]($3) | [Send Cash]($4) | [Trade]($5)'
 
         }
-
+    },
+    QUOTE: {
+        TITLE: 'Quote: ',
+        SAVED: 'Saved by $1 on $2',
+        ADDED: 'thank you, I have added your quote!'
     }
 }
