@@ -17,6 +17,7 @@ export const TYPES = {
     AdminChannelsService: Symbol("AdminChannelsService"),
     RoleService: Symbol("RoleService"),
     UserService: Symbol("UserService"),
+    QuotesService: Symbol("QuotesService"),
     //User Module
     UserSandbox: Symbol("UserSandbox"),
     UserModule: Symbol("UserModule"),
@@ -27,5 +28,8 @@ export const TYPES = {
     RandomResponses: Symbol("RandomResponses"),
     //Management Module
     ManagementModule: Symbol("ManagementModule"),
-    ManagementSandbox: Symbol("ManagementSandbox")
+    ManagementSandbox: Symbol("ManagementSandbox"),
+    //Quotes Module
+    QuotesModule: Symbol("QuotesModule"),
+    QuotesSandbox: Symbol("QuotesSandbox")
   };

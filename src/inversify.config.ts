@@ -18,6 +18,9 @@ import { AdminChannelsService } from "./services/admin-channels.service";
 import { RoleService } from "./services/roles.service";
 import { UserService } from "./services/users.service";
 import { ManagementSandbox } from "./modules/management/management.sandbox";
+import { QuotesService } from "./services/quotes.service";
+import { QuotesModule } from "./modules/quotes/quotes";
+import { QuotesSandbox } from "./modules/quotes/quotes.sandbox";
 
 let container = new Container();
 
@@ -41,6 +44,7 @@ container.bind<HttpClientService>(TYPES.HttpClientService).to(HttpClientService)
 container.bind<AdminChannelsService>(TYPES.AdminChannelsService).to(AdminChannelsService).inSingletonScope();
 container.bind<RoleService>(TYPES.RoleService).to(RoleService).inSingletonScope();
 container.bind<UserService>(TYPES.UserService).to(UserService).inSingletonScope();
+container.bind<QuotesService>(TYPES.QuotesService).to(QuotesService).inSingletonScope();
 
 //User Module
 container.bind<UserSandbox>(TYPES.UserSandbox).to(UserSandbox).inSingletonScope();
@@ -56,4 +60,9 @@ container.bind<RandomResponses>(TYPES.RandomResponses).to(RandomResponses).inSin
 //Random Module
 container.bind<ManagementModule>(TYPES.ManagementModule).to(ManagementModule).inSingletonScope();
 container.bind<ManagementSandbox>(TYPES.ManagementSandbox).to(ManagementSandbox).inSingletonScope();
+
+//Quotes Module
+container.bind<QuotesModule>(TYPES.QuotesModule).to(QuotesModule).inSingletonScope();
+container.bind<QuotesSandbox>(TYPES.QuotesSandbox).to(QuotesSandbox).inSingletonScope();
+
 export default container;
