@@ -55,7 +55,7 @@ export class RandomResponses {
     ) {
       let replies = [
         "What are you doing Step Leader!", //
-        "Don't be Rhinkey Dink", //
+        "Don't be Rhinky Dink", //
         "Just blame Harley", //
         "Hey",
       ];

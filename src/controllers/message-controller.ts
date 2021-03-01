@@ -65,7 +65,7 @@ export class MessageResponder {
         BotConstants.COMMANDS.QUOTES,
         new Command(
           quotesModule,
-          quotesModule.getRandomQuote,
+          quotesModule.getQuote,
           false,
           BotConstants.COMMANDS.DESC.QUOTES
         ),
@@ -158,7 +158,7 @@ export class MessageResponder {
     message.reply(BotConstants.ERROR.NOT_IMPLEMENTED);
   }
 
-  async handle(message: Message): Promise<Message | Message[]> {
+  async handle(message: Message): Promise<any> {
     // !help command. (MUST BE BEFORE HANDLING MODULES)
     if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
       let keyList: String = "",
@@ -214,7 +214,7 @@ export class MessageResponder {
             } else {
               message.reply(BotConstants.ERROR.NO_ADMIN);
             }
-            return message.delete();
+            return message;
           });
       }
     }

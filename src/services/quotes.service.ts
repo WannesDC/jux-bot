@@ -9,7 +9,7 @@ export class QuotesService {
 
   public async getQuotes(): Promise<QuoteEntity[]> {
     let query = `
-        SELECT quote, nickname, date_posted FROM quotes
+        SELECT quote_id, quote, nickname, date_posted, channel_id, server_id FROM quotes
     `;
 
     return await this.db.executeQuery(query).then((result) => {
@@ -17,9 +17,10 @@ export class QuotesService {
     });
   }
 
-  public async addQuote(quote: string, userName: string) {
+  public async addQuote(quote: string, userName: string, channelId: string, serverId: string) {
+    let proofedQuote = quote.replace(/'/g, '\'\'');
     let query = `
-         INSERT INTO quotes (quote, nickname, date_posted) VALUES ('${quote}', '${userName}', CURRENT_DATE) ON CONFLICT DO NOTHING
+         INSERT INTO quotes (quote, nickname, date_posted, channel_id, server_id) VALUES ('${proofedQuote}', '${userName}', CURRENT_DATE, '${channelId}', '${serverId}') ON CONFLICT DO NOTHING
          `;
 
     await this.db.executeQuery(query).catch((err) => console.log(err));

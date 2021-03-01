@@ -35,5 +35,7 @@ CREATE TABLE IF NOT EXISTS quotes (
         quote varchar(2000),
         nickname varchar(100),
         date_posted date, 
+        channel_id varchar,
+        server_id varchar,
         constraint quotes_pk primary key (quote_id)
 );

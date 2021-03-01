@@ -14,7 +14,7 @@ export class QuotesSandbox {
         return await this.quotesService.getQuotes();
     }
 
-    public async addQuote(quote: string, userName: string){
-        await this.quotesService.addQuote(quote, userName).catch(err => console.log(err));
+    public async addQuote(quote: string, userName: string, channelId: string, serverId: string){
+        await this.quotesService.addQuote(quote, userName, channelId, serverId).catch(err => console.log(err));
     }
 }
