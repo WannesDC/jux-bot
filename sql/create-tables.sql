@@ -27,3 +27,13 @@ CREATE TABLE IF NOT EXISTS admin_channels (
         channel_id varchar,
         constraint admin_channels_pk primary key (channel_id)
 );
+
+-- Version 1.2.0
+
+CREATE TABLE IF NOT EXISTS quotes (
+        quote_id serial,
+        quote varchar(2000),
+        nickname varchar(100),
+        date_posted date, 
+        constraint quotes_pk primary key (quote_id)
+);

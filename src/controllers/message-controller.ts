@@ -6,6 +6,7 @@ import { BotConstants } from "../bot-constants";
 import { RandomResponses } from "../modules/random-responses/random-responses";
 import { ManagementModule } from "../modules/management/management";
 import { DatabaseController } from "./database-controller";
+import { QuotesModule } from "../modules/quotes/quotes";
 
 class Command {
   obj: Object;
@@ -34,7 +35,8 @@ export class MessageResponder {
     @inject(TYPES.RandomResponses) random: RandomResponses,
     @inject(TYPES.DatabaseController) private db: DatabaseController,
     @inject(TYPES.ManagementModule) private managementModule: ManagementModule,
-    @inject(TYPES.SuperUser) superUser: string
+    @inject(TYPES.SuperUser) superUser: string,
+    @inject(TYPES.QuotesModule) quotesModule: QuotesModule,
   ) {
     this.prefix = prefix;
     this.random = random;
@@ -62,10 +64,19 @@ export class MessageResponder {
       [
         BotConstants.COMMANDS.QUOTES,
         new Command(
-          this,
-          this.handleMessage,
+          quotesModule,
+          quotesModule.getRandomQuote,
           false,
           BotConstants.COMMANDS.DESC.QUOTES
+        ),
+      ],
+      [
+        BotConstants.COMMANDS.ADDQUOTES,
+        new Command(
+          quotesModule,
+          quotesModule.addQuote,
+          false,
+          BotConstants.COMMANDS.DESC.ADDQUOTES
         ),
       ],
       [
