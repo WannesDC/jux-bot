@@ -18,7 +18,9 @@ export class DatabaseController {
         if (process.env.DATABASE_URL) {
             client = new Client({
                 connectionString: process.env.DATABASE_URL,
-                ssl: false
+                ssl: {
+                    rejectUnauthorized: false
+                }
             });
         } else {
             let connection = {

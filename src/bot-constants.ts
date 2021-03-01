@@ -27,7 +27,7 @@ export const BotConstants = {
             ADMIN: {
                 ADD_ADMIN_CHANNEL: 'addadminchannel',
                 DELETE_ADMIN_CHANNEL: 'deleteadminchannel',
-                GENERATE_DB: 'Generate the database (ONLY USE ONCE).',
+                GENERATE_DB: 'Generate the database - needs to be run on certain updates.',
                 ADD_ROLE: 'addrole',
                 ADD_USER_ROLE: 'assignrole',
                 ADD_USER: 'adduser'
