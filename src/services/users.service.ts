@@ -54,16 +54,11 @@ export class UserService {
     SELECT role_id FROM users u INNER JOIN user_roles ur ON (u.discord_user_id = ur.discord_user_id) WHERE ur.discord_user_id = '${user_id}' 
 `;
     //get role_id, check whether it's an admin role
-    return await this.db
-      .executeQuery(query)
-      .then((result) => {
-        return result.rows.find(
-          (e) => e.role_id === BotConstants.ROLES.SUPER_ADMIN
-        );
-      })
-      .then(() => {
-        return true;
-      });
+    let result = await this.db.executeQuery(query);
+    let match = result.rows.find(
+      (e) => e.role_id === BotConstants.ROLES.SUPER_ADMIN
+    );
+    return match && true // assuming .find returns null if not found
   }
 
   public addRoleToUser(user_id: string, role_id: string) {
