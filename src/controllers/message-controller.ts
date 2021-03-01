@@ -65,11 +65,12 @@ export class MessageResponder {
         if (message.content.startsWith(this.prefix + BotConstants.COMMANDS.HELP)) {
             let keyList: String = "", descList: String = "";
             this.modules.forEach((command: Command, key: String) => {
-                if (!command.admin || this.managementModule.isUserAdmin(message.author.id)
-                    || message.author.id === (this.superUser)) {
+                this.managementModule.isUserAdmin(message.author.id).then( res => {
+                  if (!command.admin || res || message.author.id === (this.superUser)) {
                     keyList += key + "  \n";
                     descList += command.desc + "  \n";
-                }
+                  }
+                });
             });
             const profileEmbed: MessageEmbed = new MessageEmbed();
             profileEmbed
@@ -91,13 +92,15 @@ export class MessageResponder {
             let command = message.content.split(" ")[0].substr(1);
             let commandObj = this.modules.get(command);
             if (commandObj) {
-                if (!commandObj.admin || this.managementModule.isUserAdmin(message.author.id)
-                    || message.author.id === (this.superUser)) {
-                    await commandObj.func.call(commandObj.obj, message);
-                } else {
-                    message.reply(BotConstants.ERROR.NO_ADMIN);
-                }
-                return message.delete();
+              this.managementModule.isUserAdmin(message.author.id).then(async res => {
+                if (!commandObj?.admin || res
+                  || message.author.id === (this.superUser)) {
+                  await commandObj?.func.call(commandObj?.obj, message);
+              } else {
+                  message.reply(BotConstants.ERROR.NO_ADMIN);
+              }
+              return message.delete();
+              })
             }
         }
 
