@@ -7,7 +7,7 @@ export const BotConstants = {
     COMMANDS: {
         PING: 'ping',
         QUOTES: 'quotes',
-        ADDQUOTES: 'addq',
+        ADDQUOTES: 'addquote',
         STOCK: 'stock',
         USER: 'user',
         HELP: 'help',
@@ -21,7 +21,7 @@ export const BotConstants = {
         },
         DESC: {
             PING: 'Pong!',
-            QUOTES: 'Generates a random quote.. yay..',
+            QUOTES: 'Generates a random quote (or give an ID!)',
             ADDQUOTES: 'Add a quote',
             STOCK: 'Gives you information about witchcraft.',
             USER: 'Displays the profile information of a User.',

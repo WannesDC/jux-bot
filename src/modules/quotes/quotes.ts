@@ -21,7 +21,7 @@ export class QuotesModule {
         let quoteId = parseInt(message.content.substring(8, message.content.length));
         let randomQuote : QuoteEntity;
         await this.sandbox.getQuotes().then(result => {
-            if(quoteId) {
+            if(quoteId && quoteId <= result.length) {
                 randomQuote = result[quoteId-1];
             }else{
                 randomQuote = this.selector.randomMessageSelector(result);
@@ -44,7 +44,7 @@ export class QuotesModule {
 
     public async addQuote(message: Message) {
         
-        let quote = message.content?.substring(6, message.content.length); 
+        let quote = message.content?.substring(10, message.content.length); 
         let nickname = message.member?.nickname || "N/A";
         let channelId = message.channel.id;
         let serverId = message.guild?.id || "N/A";
