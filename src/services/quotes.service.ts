@@ -23,7 +23,15 @@ export class QuotesService {
          INSERT INTO quotes (quote, nickname, date_posted, channel_id, server_id) VALUES ('${proofedQuote}', '${userName}', CURRENT_DATE, '${channelId}', '${serverId}') ON CONFLICT DO NOTHING
          `;
 
-    await this.db.executeQuery(query).catch((err) => console.log(err));
+    await this.db.executeQuery(query);
+  }
+
+  public async deleteQuote(quoteId: string) {
+    let query = `
+        DELETE FROM quotes WHERE quote_id = '${quoteId}'
+         `;
+
+    await this.db.executeQuery(query);
   }
 
 

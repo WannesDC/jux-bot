@@ -20,6 +20,7 @@ export class QuotesModule {
     public async getQuote(message : Message){ 
         let quoteId = parseInt(message.content.substring(8, message.content.length));
         let randomQuote : QuoteEntity;
+<<<<<<< HEAD
         await this.sandbox.getQuotes()
         .then( result => {
             randomQuote = result.find(quote => {
@@ -34,6 +35,12 @@ export class QuotesModule {
                 randomQuote = this.selector.randomMessageSelector(result.quoteArray);;
             }
             
+=======
+        await this.sandbox.getQuotes().then(result => {
+
+            randomQuote = result.find(quote => quote.quote_id === quoteId.toString()) || this.selector.randomMessageSelector(result);;
+
+>>>>>>> fbcb4ba37d93a61959f3e250357d4b91b681bf27
             let image = randomQuote.quote.match(/\b(https?:\/\/\S+(?:png|jpe?g|gif)\S*)\b/) || []
             let footer = this.customParsers.parseConstants(BotConstants.QUOTE.SAVED,randomQuote.nickname,randomQuote.date_posted.toDateString());        
 
@@ -59,6 +66,26 @@ export class QuotesModule {
             await this.sandbox.addQuote(quote, nickname, channelId, serverId).then(() =>
                 message.reply(BotConstants.QUOTE.ADDED)
             ).catch(err => console.log(err));
+        } else if(message.reference?.messageID){
+            message.channel.messages
+            .fetch(message.reference.messageID)
+            .then(async quote => {
+                await this.sandbox.addQuote(quote.content, nickname, channelId, serverId).then(() =>
+                message.reply(BotConstants.QUOTE.ADDED)
+            ).catch(err => console.log(err));
+            });
+        } else {
+            message.reply(BotConstants.ERROR.ARGUMENT_ERROR);
+        }
+    }
+
+    public async deleteQuote(message: Message) {
+        let quoteId : string = message.content?.substring(13, message.content.length); 
+
+        if(quoteId) {
+            await this.sandbox.deleteQuote(quoteId).then(() => 
+                message.reply(BotConstants.QUOTE.DELETED + quoteId)
+            ).catch(err => console.log(err));;
         } else {
             message.reply(BotConstants.ERROR.ARGUMENT_ERROR);
         }
