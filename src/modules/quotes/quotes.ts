@@ -63,7 +63,7 @@ export class QuotesModule {
             message.channel.messages
             .fetch(message.reference.messageID)
             .then(async quote => {
-                await this.sandbox.addQuote(quote.content, nickname, channelId, serverId).then(() =>
+                await this.sandbox.addQuote(quote.member?.nickname + ': '+ quote.content, nickname, channelId, serverId).then(() =>
                 message.reply(BotConstants.QUOTE.ADDED)
             ).catch(err => console.log(err));
             });
