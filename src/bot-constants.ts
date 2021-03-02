@@ -17,7 +17,8 @@ export const BotConstants = {
             GENERATE_DB: 'gndb',
             ADD_ROLE: 'addrole',
             ADD_USER_ROLE: 'assignrole',
-            ADD_USER: 'adduser'
+            ADD_USER: 'adduser',
+            DELETEQUOTES: 'deletequote'
         },
         DESC: {
             PING: 'Pong!',
@@ -32,7 +33,8 @@ export const BotConstants = {
                 GENERATE_DB: 'Generate the database',
                 ADD_ROLE: 'addrole',
                 ADD_USER_ROLE: 'assignrole',
-                ADD_USER: 'adduser'
+                ADD_USER: 'adduser',
+                DELETEQUOTES: 'deletequote'
             }
 
 
@@ -94,6 +96,7 @@ export const BotConstants = {
     QUOTE: {
         TITLE: 'Quote: ',
         SAVED: 'Saved by $1 on $2',
-        ADDED: 'thank you, I have added your quote!'
+        ADDED: 'thank you, I have added your quote!',
+        DELETED: 'I deleted quote with ID: '
     }
 }

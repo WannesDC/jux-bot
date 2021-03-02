@@ -21,12 +21,9 @@ export class QuotesModule {
         let quoteId = parseInt(message.content.substring(8, message.content.length));
         let randomQuote : QuoteEntity;
         await this.sandbox.getQuotes().then(result => {
-            if(quoteId && quoteId <= result.length) {
-                randomQuote = result[quoteId-1];
-            }else{
-                randomQuote = this.selector.randomMessageSelector(result);
-            }
-            
+
+            randomQuote = result.find(quote => quote.quote_id === quoteId.toString()) || this.selector.randomMessageSelector(result);;
+
             let image = randomQuote.quote.match(/\b(https?:\/\/\S+(?:png|jpe?g|gif)\S*)\b/) || []
             let footer = this.customParsers.parseConstants(BotConstants.QUOTE.SAVED,randomQuote.nickname,randomQuote.date_posted.toDateString());        
 
@@ -52,6 +49,26 @@ export class QuotesModule {
             await this.sandbox.addQuote(quote, nickname, channelId, serverId).then(() =>
                 message.reply(BotConstants.QUOTE.ADDED)
             ).catch(err => console.log(err));
+        } else if(message.reference?.messageID){
+            message.channel.messages
+            .fetch(message.reference.messageID)
+            .then(async quote => {
+                await this.sandbox.addQuote(quote.content, nickname, channelId, serverId).then(() =>
+                message.reply(BotConstants.QUOTE.ADDED)
+            ).catch(err => console.log(err));
+            });
+        } else {
+            message.reply(BotConstants.ERROR.ARGUMENT_ERROR);
+        }
+    }
+
+    public async deleteQuote(message: Message) {
+        let quoteId : string = message.content?.substring(13, message.content.length); 
+
+        if(quoteId) {
+            await this.sandbox.deleteQuote(quoteId).then(() => 
+                message.reply(BotConstants.QUOTE.DELETED + quoteId)
+            ).catch(err => console.log(err));;
         } else {
             message.reply(BotConstants.ERROR.ARGUMENT_ERROR);
         }

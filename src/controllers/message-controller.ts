@@ -80,6 +80,15 @@ export class MessageResponder {
         ),
       ],
       [
+        BotConstants.COMMANDS.ADMIN.DELETEQUOTES,
+        new Command(
+          quotesModule,
+          quotesModule.deleteQuote,
+          true,
+          BotConstants.COMMANDS.DESC.ADMIN.DELETEQUOTES
+        ),
+      ],
+      [
         BotConstants.COMMANDS.STOCK,
         new Command(
           this,
