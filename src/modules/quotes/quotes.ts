@@ -20,7 +20,6 @@ export class QuotesModule {
     public async getQuote(message : Message){ 
         let quoteId = parseInt(message.content.substring(8, message.content.length));
         let randomQuote : QuoteEntity;
-<<<<<<< HEAD
         await this.sandbox.getQuotes()
         .then( result => {
             randomQuote = result.find(quote => {
@@ -35,12 +34,6 @@ export class QuotesModule {
                 randomQuote = this.selector.randomMessageSelector(result.quoteArray);;
             }
             
-=======
-        await this.sandbox.getQuotes().then(result => {
-
-            randomQuote = result.find(quote => quote.quote_id === quoteId.toString()) || this.selector.randomMessageSelector(result);;
-
->>>>>>> fbcb4ba37d93a61959f3e250357d4b91b681bf27
             let image = randomQuote.quote.match(/\b(https?:\/\/\S+(?:png|jpe?g|gif)\S*)\b/) || []
             let footer = this.customParsers.parseConstants(BotConstants.QUOTE.SAVED,randomQuote.nickname,randomQuote.date_posted.toDateString());        
 
