@@ -32,6 +32,15 @@ export class RandomResponses {
       return message.channel.send(this.selector.randomMessageSelector(replies));
     }
 
+    if(message.author.id === "434052059369570304" && Math.random() < 0.01) {
+      let replies = [
+        "Stop being a drama queen *flips hair*", //
+        "I'm sorry", //
+        "Can I have some poutine", //
+      ];
+      return message.channel.send(this.selector.randomMessageSelector(replies));
+    }
+
     if (
       message.member?.roles.cache.some(
         (role) => role.name === BotConstants.ROLES.CLOGS_ROLE
