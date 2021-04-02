@@ -37,6 +37,7 @@ export class RandomResponses {
         "Stop being a drama queen *flips hair*", //
         "I'm sorry", //
         "Can I have some poutine", //
+        "i'm a slut for pineapple too"
       ];
       return message.channel.send(this.selector.randomMessageSelector(replies));
     }
@@ -44,6 +45,21 @@ export class RandomResponses {
     if (
       message.member?.roles.cache.some(
         (role) => role.name === BotConstants.ROLES.CLOGS_ROLE
+      ) &&
+      Math.random() < 0.01
+    ) {
+      let replies = [
+        "Oh yes bb", //
+        "Give it to me", //
+        "Mmmm cheese", //
+        "Yes Daddy",
+      ];
+      message.channel.send(this.selector.randomMessageSelector(replies));
+    }
+
+    if (
+      message.member?.roles.cache.some(
+        (role) => role.name === BotConstants.ROLES.HOT_STUFF
       ) &&
       Math.random() < 0.01
     ) {

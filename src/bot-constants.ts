@@ -2,7 +2,8 @@ export const BotConstants = {
     ROLES: {
         CLOGS_ROLE: 'clogs',
         STEP_LEADER_ROLE: 'Step Leaders',
-        SUPER_ADMIN: '1'
+        SUPER_ADMIN: '1',
+        HOT_STUFF: 'Hot Stuff'
     },
     COMMANDS: {
         PING: 'ping',
