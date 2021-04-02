@@ -17,7 +17,7 @@ export class RandomResponses {
         "Oh yes... Daddy Kuro!", //
         "Kurt!", //
         "How did you like Avatar: the last airbender, the movie?", //
-        "Hey", //
+        "No Daddy Please!", //
       ];
       message.channel.send(this.selector.randomMessageSelector(replies));
     }
