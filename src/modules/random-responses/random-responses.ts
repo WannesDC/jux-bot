@@ -111,6 +111,16 @@ export class RandomResponses {
     }
 
     if (
+      message &&
+      Math.random() < 0.01
+    ) {
+      let replies = [
+        "Happy Birthday"
+      ];
+      message.reply(this.selector.randomMessageSelector(replies));
+    }
+
+    if (
       message.member?.roles.cache.some(
         (role) => role.name === BotConstants.ROLES.STEP_LEADER_ROLE
       ) &&
