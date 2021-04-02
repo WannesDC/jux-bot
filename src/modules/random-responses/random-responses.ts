@@ -44,7 +44,7 @@ export class RandomResponses {
 
     if (
       message.member?.roles.cache.some(
-        (role) => role.name === BotConstants.ROLES.CLOGS_ROLE
+        (role) => role.name === BotConstants.ROLES.HOT_STUFF
       ) &&
       Math.random() < 0.01
     ) {
@@ -59,7 +59,7 @@ export class RandomResponses {
 
     if (
       message.member?.roles.cache.some(
-        (role) => role.name === BotConstants.ROLES.HOT_STUFF
+        (role) => role.name === BotConstants.ROLES.CLOGS_ROLE
       ) &&
       Math.random() < 0.01
     ) {
