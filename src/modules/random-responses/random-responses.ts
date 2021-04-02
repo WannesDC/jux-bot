@@ -100,6 +100,18 @@ export class RandomResponses {
 
     if (
       message.member?.roles.cache.some(
+        (role) => role.name === BotConstants.ROLES.JUX_HQ
+      ) &&
+      Math.random() < 0.005
+    ) {
+      let replies = [
+        "more like Jokes HQ"
+      ];
+      message.channel.send(this.selector.randomMessageSelector(replies));
+    }
+
+    if (
+      message.member?.roles.cache.some(
         (role) => role.name === BotConstants.ROLES.STEP_LEADER_ROLE
       ) &&
       Math.random() < 0.01

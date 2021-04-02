@@ -5,7 +5,8 @@ export const BotConstants = {
         SUPER_ADMIN: '1',
         HOT_STUFF: 'Hot Stuff',
         TRAITOR: 'traitor',
-        LITTLE_TOES: 'Little Toes'
+        LITTLE_TOES: 'Little Toes',
+        JUX_HQ: 'Jux HQ'
     },
     COMMANDS: {
         PING: 'ping',
