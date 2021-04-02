@@ -74,6 +74,32 @@ export class RandomResponses {
 
     if (
       message.member?.roles.cache.some(
+        (role) => role.name === BotConstants.ROLES.TRAITOR
+      ) &&
+      Math.random() < 0.01
+    ) {
+      let replies = [
+        "You traitor :(", //
+        "Filthy traitor, we miss you", //
+        "No kattenstoet plushies for you!"
+      ];
+      message.channel.send(this.selector.randomMessageSelector(replies));
+    }
+
+    if (
+      message.member?.roles.cache.some(
+        (role) => role.name === BotConstants.ROLES.LITTLE_TOES
+      ) &&
+      Math.random() < 0.005
+    ) {
+      let replies = [
+        "Dem little toes though!", 
+      ];
+      message.channel.send(this.selector.randomMessageSelector(replies));
+    }
+
+    if (
+      message.member?.roles.cache.some(
         (role) => role.name === BotConstants.ROLES.STEP_LEADER_ROLE
       ) &&
       Math.random() < 0.01
