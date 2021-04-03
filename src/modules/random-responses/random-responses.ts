@@ -112,7 +112,7 @@ export class RandomResponses {
 
     if (
       message &&
-      Math.random() < 0.01
+      Math.random() < 0.001
     ) {
       let replies = [
         "Happy Birthday"
