@@ -64,7 +64,7 @@ export const BotConstants = {
         }
     },
     ERROR: {
-        NOT_IMPLEMENTED: 'Sorry, this isn\'t ready yet',
+        NOT_IMPLEMENTED: 'Shut the fuck up',
         PLAYER_ID: 'I\'m sorry I couldn\'t find a user with id: ',
         PLAYER_ID_NO_NUMBER: 'potato, use an actual ID please',
         NO_ID: 'Seems you forgot to give me an ID!',
